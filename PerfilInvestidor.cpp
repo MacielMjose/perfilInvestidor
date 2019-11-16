@@ -12,7 +12,6 @@
 #include <string.h>
 #include <locale.h>    // setlocale
 
-#include "GDPerfilInvestidor.h"
 
 #define FALSE   0      // constante falsa
 #define TRUE   !FALSE  // constante verdadeira
@@ -25,6 +24,7 @@ typedef struct {          // registro
        int  codigo;       
 	   int  altura;
 	   int  fatbal;
+	   char nome[9]; //mudar nome dessa variável depois
 } INFORMACAO;
        
 typedef struct arv {
@@ -33,6 +33,8 @@ typedef struct arv {
        struct arv* sube;  // ponteiro para o nodo da esquerda
 } ARVORE; 
 
+
+#include "GDPerfilInvestidor.h"
 
 
 /***********************************************/ 
@@ -131,6 +133,7 @@ int main( void )
                    break;
                    
            case '9': // rotina gera dados de forma automática para povoar a Arvore
+           
                     gera_dados(&r);
                     break;
 				                      
