@@ -185,7 +185,7 @@ void imprime_ARVORE( ARVORE* aux ){
     if( aux != NULL ){              // verifica se a raiz é diferente de vazio
         printf( "\n Código.....: %d", aux->info.codigo );
         printf( "\n Altura.....: %d", aux->info.altura );
-        printf( "\n Fatbal.....: %d", aux->info.nome );        
+        printf( "\n Fatbal.....: %s", aux->info.nome );        
 		getchar();
         printf( "\n >> sube" );
         imprime_ARVORE( aux->sube ); // recursivo, segue pelo caminho da esquerda
@@ -664,7 +664,7 @@ for(i = 0 ; i < 10 ; i ++)
 		 if(no != NULL)
 		 {
 	     	no->info.codigo = cod;
-	     	strcpy(no->info.nome,nomes[i]);
+	     	strcpy(no->info.nome,(nomes[i]));
 	     	
 	     	entrada_dados(no);  
 		     if(*r == NULL)
