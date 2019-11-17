@@ -34,7 +34,7 @@ typedef struct arv {
 } ARVORE; 
 
 
-#include "GDPerfilInvestidor.h"
+//#include "GDPerfilInvestidor.h"
 
 
 /***********************************************/ 
@@ -45,7 +45,8 @@ void    imprime_ARVORE  ( ARVORE* aux ); // visualização da árvore em tela, todo
 void    cria_ARVORE     ( ARVORE** r );  // inicializa árvore com NULL
 void    insere          ( ARVORE** r );  // inclui um novo registro na árvore, sempre na folha
 void    insere_recursivo( ARVORE** r, int cod ); // inclui um novo registro na árvore
-ARVORE* busca_recursivo ( ARVORE *p, int cod );  
+ARVORE* busca_recursivo ( ARVORE *p, int cod ); 
+void gera_dados(ARVORE **r);   
 int     busca           ( int matricula, ARVORE** a, ARVORE** p ); // procura na árvore um código
 void    sucessor        ( ARVORE* p, ARVORE** q, ARVORE** b ); // procura registro posterior de um código
 void    antecessor      ( ARVORE* p, ARVORE** q, ARVORE** b ); // procura registro anterior de um código
@@ -56,7 +57,7 @@ void    calcula_altura  ( ARVORE **r );
 int     altura_arvore   ( ARVORE *p );     // informa a altura da árvore
 void verifica_balanceamento( ARVORE **r ); // verifica balanceamento da árvore
 void rotacao_direita ( ARVORE **p );
-void rotacao_esquerda( ARVORE **p );       
+void rotacao_esquerda( ARVORE **p ); 
        
 /***********************************************/ 
 /* Programa Principal                          */
@@ -184,7 +185,7 @@ void imprime_ARVORE( ARVORE* aux ){
     if( aux != NULL ){              // verifica se a raiz é diferente de vazio
         printf( "\n Código.....: %d", aux->info.codigo );
         printf( "\n Altura.....: %d", aux->info.altura );
-        printf( "\n Fatbal.....: %d", aux->info.fatbal );        
+        printf( "\n Fatbal.....: %d", aux->info.nome );        
 		getchar();
         printf( "\n >> sube" );
         imprime_ARVORE( aux->sube ); // recursivo, segue pelo caminho da esquerda
@@ -615,3 +616,72 @@ void rotacao_esquerda( ARVORE **p ){
 		  *p= aux;                                // reposiciona p
      }
 }
+
+
+/************************************************
+ * gera_dados                                   *
+ * objetivo: rotina para ler dados dos registros*
+ * entrada : lista                              *
+ * saída   : lista atualizado com dados         *
+ ***********************************************/
+ 
+ //void SetPessoa(Pessoa *P, int idade, float peso, float altura)
+
+void gera_dados(ARVORE **r){
+
+	 
+int   i, x;                                 // i= índice da lista; x= armazena número sorteado 
+for(i = 0 ; i < 10 ; i ++)
+{
+	for(x = 0 ; x < 10 ; x++){
+		
+	ARVORE* a;      // ponteiro auxiliar
+    ARVORE* p;      // ponteiro auxiliar para anterior de p
+    int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estrutura
+	
+	//Vetor de perguntas a serem respondidas pelo usuario/
+	char *nomes[] = {
+"Você realizou alguma aplicação nos últimos 12 meses?", //cod 0
+"Pergunta02", //cod 1
+"Pergunta03", //cod 2
+"Pergunta04", //cod 3
+"Pergunta05", //cod 4
+"Pergunta06", //cod 5
+"Pergunta07", //cod 6
+"Perfil01",   //cod 7
+"Perfil02",   //cod 8
+"Perfil03"    //cod 9
+};
+  		
+		 printf("\n teste: %s",nomes[i]);
+		 getchar();
+		 p = *r;
+		 achou = busca( cod, &a, &p );      // verifica se código a ser inserido já existe na árvore
+		if(!achou)
+		{
+	     ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
+	     
+		 if(no != NULL)
+		 {
+	     	no->info.codigo = cod;
+	     	strcpy(no->info.nome,nomes[i]);
+	     	
+	     	entrada_dados(no);  
+		     if(*r == NULL)
+			 {
+			 		*r = no;
+			 }
+		 else		 	
+		 		if(no->info.codigo > a->info.codigo)
+			 		a->subd = no;
+		 	else
+		 			a->sube = no;
+		}
+	     	
+	}
+}
+		
+	}
+
+}
+	
