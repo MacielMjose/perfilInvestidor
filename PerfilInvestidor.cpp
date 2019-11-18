@@ -24,7 +24,7 @@ typedef struct {          // registro
        int  codigo;       
 	   int  altura;
 	   int  fatbal;
-	   char nome[9]; //mudar nome dessa variável depois
+	   char nome[500]; //mudar nome dessa variável depois
 } INFORMACAO;
        
 typedef struct arv {
@@ -40,24 +40,17 @@ typedef struct arv {
 /***********************************************/ 
 /* Definição das Funções                       */
 /***********************************************/
-void    entrada_dados   ( ARVORE* aux ); // leitura dos dados de entrada
-void    imprime_ARVORE  ( ARVORE* aux ); // visualização da árvore em tela, todos os registros
 void    cria_ARVORE     ( ARVORE** r );  // inicializa árvore com NULL
+void    entrada_dados   ( ARVORE* aux ); // leitura dos dados de entrada
+void gera_dados(ARVORE **r); 
+void    imprime_ARVORE  ( ARVORE* aux ); // visualização da árvore em tela, todos os registros
 void    insere          ( ARVORE** r );  // inclui um novo registro na árvore, sempre na folha
 void    insere_recursivo( ARVORE** r, int cod ); // inclui um novo registro na árvore
 ARVORE* busca_recursivo ( ARVORE *p, int cod ); 
-void gera_dados(ARVORE **r);   
+ARVORE* inicia_questionario( ARVORE *p,char opt); //rotina responsavel por realizar as perguntas a fim de traçar o perfil do investidor
 int     busca           ( int matricula, ARVORE** a, ARVORE** p ); // procura na árvore um código
-void    sucessor        ( ARVORE* p, ARVORE** q, ARVORE** b ); // procura registro posterior de um código
-void    antecessor      ( ARVORE* p, ARVORE** q, ARVORE** b ); // procura registro anterior de um código
-void    remove          ( ARVORE** r );  // exclui um regitro por código
 ARVORE* remove_recursivo( ARVORE *p, int cod );
-//ARVORE* menor_valor     ( ARVORE *p );
-void    calcula_altura  ( ARVORE **r );
-int     altura_arvore   ( ARVORE *p );     // informa a altura da árvore
-void verifica_balanceamento( ARVORE **r ); // verifica balanceamento da árvore
-void rotacao_direita ( ARVORE **p );
-void rotacao_esquerda( ARVORE **p ); 
+
        
 /***********************************************/ 
 /* Programa Principal                          */
@@ -74,15 +67,10 @@ int main( void )
          printf( "\n /---------------------------------------------------/" ); 
          printf( "\n Programa de registros - Menu                         " );
          printf( "\n [1] Cria ARVORE                                      " );
-         printf( "\n [2] Insere                                           " );
-         printf( "\n [3] Remove                                           " );
          printf( "\n [4] Imprime                                          " );         
-         printf( "\n [5] Insere recursivo                                 " );
-         printf( "\n [6] Busca recursivo                                  " );         
-         printf( "\n [7] Remove recursivo                                 " );          
-         printf( "\n [8] Menor valor                                      " ); 
-		 printf( "\n [9] Gera Arvore Binária - Popular Árvore             " );   
-		 printf( "\n [10] Para sair do programa                           " );         
+		 printf( "\n [9] Gera Arvore Binária - Popular Árvore             " ); 
+		 printf( "\n [5] Inicia Questionário                             " );         
+		 printf( "\n [7] Para sair do programa                           " );         
          printf( "\n /---------------------------------------------------/" );      
          printf( "\n Opcao: " );
          op = getche(); // tecla de opção do menu
@@ -95,22 +83,10 @@ int main( void )
            case '2':   // rotina inclui nodo no final da ARVORE (folha)
                    insere( &r );    
                    break;
-                      
-           case '3':   // rotina exclui nodo da ARVORE
-                   remove( &r );
-                   break;
            
            case '4':   // rotina imprime nodos da ARVORE
                    imprime_ARVORE( r );
                    break;                   
-                                                         
-           case '5':   // rotina recursiva do inclui nodo da ARVORE
-                   printf("\n Digite o novo codigo: ");
-                   scanf("%d", &cod);
-                   insere_recursivo( &r, cod );
-                   calcula_altura( &r );        // calcula e armazena a altura de cada nó
-                   verifica_balanceamento( &r );// verifica balanceamento da árvore
-                   break; 
                    
            case '6':  // rotina recursiva que busca um registro da ARVORE                                                
                    printf("\n Buscar o codigo: ");
@@ -119,13 +95,6 @@ int main( void )
                    if( p != NULL )
                        printf("\n Codigo: %d", p->info.codigo);   
                    break; 
-
-           case '7':  // rotina recursiva que busca um registro da ARVORE                                                
-                   printf("\n Remove codigo: ");
-                   scanf("%d", &cod);
-                   p= remove_recursivo( r, cod );
-				   calcula_altura( &r ); 
-                   break;
                    
            case '8':  // rotina recursiva que busca um registro da ARVORE                                                
                    //p= menor_valor( r );
@@ -137,8 +106,15 @@ int main( void )
            
                     gera_dados(&r);
                     break;
+            
+            case '5':  // inicia o questionario para determinar o perfil de investidor                                               
+                  
+                   inicia_questionario(r,op);
+                   //if( p != NULL )
+                     //  printf("\n Codigo: %d", p->info.codigo);   
+                   break;
 				                      
-           case '10':  // término do programa                                                 
+           case '7':  // término do programa                                                 
                    exit( 1 ); 
                    break;                
                    
@@ -151,13 +127,35 @@ int main( void )
         getchar();       // parada da tela
         
         printf( "\n" );
+        system("cls");
      } // fim do while( 1 )
      
  return 0;
 } // fim do programa principal
 
-
-
+/***************************************************
+ * iniciar questionario                            *
+ * objetivo: rotina para buscar registro por código*
+ * entrada : ARVORE e cod                          *
+ * saída   : ARVORE com mais um registro           *
+ ***************************************************/ 
+ARVORE* inicia_questionario( ARVORE *p, char opt)
+{
+   char resposta[3];
+   //p = (*r);
+   while(p->subd != NULL || p->sube != NULL)
+   { 	
+      	printf("%s\n",p->info.nome);
+   		printf("Resposta: ");
+   		gets(resposta); 
+   		if( strcmp(resposta,"sim")==0)
+   		inicia_questionario(p->subd,opt);
+   	else
+       	inicia_questionario( p->sube,opt); // anda com o ponteiro p para a direita, pois o código procurada é maior 
+   } // fim if( *p == NULL || (*p)->info.codigo == cod )
+  getch();
+}
+  
 /************************************************ 
  * entrada_dados                                *
  * objetivo: rotina para ler dados              *
@@ -171,8 +169,6 @@ void entrada_dados( ARVORE* aux )
     aux->sube = NULL;    // não aponta
 
 }
-
-
 
 /*************************************************
  * imprime_ARVORE                                *
@@ -196,24 +192,6 @@ void imprime_ARVORE( ARVORE* aux ){
        printf("\n Árvore vazia!");
 }
 
-
-/*************************************************
- * menor_valor                                   *
- * objetivo: rotina para encontrar menor valor   *
- * entrada : ARVORE                              *
- * saída   : endereço do menor                   *
- *************************************************/ 
-ARVORE* menor_valor( ARVORE* aux ){    
-    //ARVORE *p; 
-    if( aux != NULL ){            // verifica se a raiz é diferente de vazio
-        //p= aux;
-        menor_valor( aux->subd ); // recursivo, segue pelo caminho da direita
-    }
-    else
-       return( aux );
-}
-
-
 /************************************************
  * cria_ARVORE                                   *
  * objetivo: rotina para inicializar a ARVORE    *
@@ -223,8 +201,6 @@ ARVORE* menor_valor( ARVORE* aux ){
 void cria_ARVORE( ARVORE** r ){
     *r = NULL; // arvore criada, raiz nao aponta
 }
-
-
 
 /************************************************* 
  * insere no Fim                                 *
@@ -261,8 +237,6 @@ void insere( ARVORE** r ){
         printf( "\n Registro já existe!" );
 }
 
-
-
 /************************************************ 
  * busca                                        *
  * objetivo: achar nodo                         *
@@ -287,171 +261,6 @@ int busca( int cod, ARVORE** a, ARVORE** p ){
    return achou; 
 }
 
-
-
-/*************************************************** 
- * remove                                          *
- * objetivo: rotina para excluir nodo da ARVORE    *
- * entrada : ARVORE                                *
- * saída   : ARVORE                                *
- ***************************************************/ 
-void remove( ARVORE** r ){
-    ARVORE* p;    // ponteiro auxiliar
-    ARVORE* q;    // ponteiro auxiliar
-    ARVORE* b;    // ponteiro auxiliar
-    ARVORE* a;    // ponteiro auxiliar para anterior
-    int cod, achou; // cod = dado de entrada; achou = informa se código já existe na estrutura
-    
-    if ( *r == NULL )
-         printf("\n Arvore vazia!");
-    else
-       {    
-        printf("\n Codigo de referencia: ");
-        fflush( stdin ); // limpa buffer do teclado e faz a entrada de dados
-        scanf( "%d", &cod ); 
-
-        p = *r;      // posiciona ponteiro auxiliar
-        achou = busca( cod, &a, &p ); // verifica se código a ser inserida já existe na árvore
-        if( achou ){ // se achou o código, remove
-            if((( p->sube != NULL ) && ( p->subd != NULL )) || (( p->subd != NULL ) && ( p->sube == NULL ))){
-                 sucessor( p, &q, &b );
-                 p->info= q->info; // substitui o código 
-                 a= b;             // ponteiros auxiliares são posicionados na subárvore 
-                 p= q;
-                 
-                 if( p->sube != NULL ) // ajusta subarvore
-                     b= p->sube;
-                 else
-                     b= p->subd;
-     
-                 if( p->info.codigo >= a->info.codigo )
-                     a->subd= b;
-                 else
-                     a->sube= b;
-            } 
-            
-            else 
-               if(( p->subd == NULL ) && ( p->sube != NULL )){
-                    antecessor( p, &q, &b );
-                    p->info= q->info; // substitui o código
-                    a= b;             // ponteiros auxiliares são posicionados na subárvore 
-                    p= q;
-
-                    if( p->subd != NULL ) // ajusta subarvore
-                        b= p->subd;
-                    else
-                        b= p->sube;
-     
-                    if( p->info.codigo >= a->info.codigo )
-                        a->sube= b;
-                    else
-                        a->subd= b;
-               }  
-               else
-                  if(( p->subd == NULL ) && ( p->sube == NULL ))
-                       if( p == *r ) // remove a raiz quando não tem filhos
-                           *r= NULL;
-                       else      
-                           if( p->info.codigo >= a->info.codigo )
-                               a->subd= NULL;
-                           else
-                               a->sube= NULL;
-                
-            free( p ); // remove registro que substituiu o excluído
-       }
-   }
-}
-
-
-/*************************************************** 
- * sucessor                                        *
- * objetivo: rotina para descobrir nodos filhos    *
- * entrada : ARVORE, ponteiros auxiliares q e b    *
- * saída   : ponteiros auxiliares q e b            *
- ***************************************************/ 
-void sucessor( ARVORE* p, ARVORE** q, ARVORE** b ){
- *b= p;
- *q= p->subd;
- while( (*q)->sube != NULL ){ // caminha pela esquerda até encontrar folha
-         *b= *q;              // atualiza ponteiro para guardar endereço do pai
-         *q= (*q)->sube;      // caminha para a esquerda
- }
-}
- 
- 
- 
-/*************************************************** 
- * antecessor                                      *
- * objetivo: rotina para descobrir nodos filhos    *
- * entrada : ARVORE, ponteiros auxiliares q e b    *
- * saída   : ponteiros auxiliares q e b            *
- ***************************************************/ 
-void antecessor( ARVORE* p, ARVORE** q, ARVORE** b ){
- *b= p;
- *q= p->sube;
- while( (*q)->subd != NULL ){ // caminha pela direita até encontrar folha
-         *b= *q;              // atualiza ponteiro para guardar endereço do pai
-         *q= (*q)->subd;      // caminha para a direita
- }
-}         
-
-
-
-/************************************************* 
- * insere_recursivo                              *
- * objetivo: rotina para inserir no fim da ARVORE*
- * entrada : ARVORE e cod                        *
- * saída   : ARVORE com mais um registro         *
- *************************************************/ 
-void insere_recursivo( ARVORE** p, int cod ){
-   if( *p == NULL ){                                     // se não achou o código, insere
-         ARVORE* no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
-         no->info.codigo= cod;  
-         no->subd= NULL;                                 // inicializa subárvore da direita
-         no->sube= NULL;								 // inicializa subárvore da esquerda
-         *p= no;                                         // anterior aponta para novo registro
-         printf( "\n Registro inserido!" );   
-   }else{
-         if( (*p)->info.codigo > cod )                   // verifica se código a ser inserido é menor que o valor do registro para qual o p aponta
-              insere_recursivo( &(*p)->sube, cod );      // anda com o ponteiro p para a esquerda, pois o código procurado é menor
-         else
-              if( (*p)->info.codigo < cod )              // verifica se código a ser inserido é maior que o valor do registro para qual o p aponta
-                   insere_recursivo( &(*p)->subd, cod ); // anda com o ponteiro p para a direita, pois o código procurado é maior 
-              else
-                 printf( "\n Registro já existe!" );    
-		 }			    
-} // desempilha
-
-
-
-/************************************************* 
- * INSERE REGISTROS - PRÉ FIXADO                 *
- * objetivo: Cria os registros  para a arvore    *
- * entrada : ARVORE e cod                        *
- * saída   : ARVORE com mais um registro         *
- *************************************************/ 
- 
-void insere_prefixado ( ARVORE** p, int cod ){
-   if( *p == NULL ){                                     // se não achou o código, insere
-         ARVORE* no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
-         no->info.codigo= cod;  
-         no->subd= NULL;                                 // inicializa subárvore da direita
-         no->sube= NULL;								 // inicializa subárvore da esquerda
-         *p= no;                                         // anterior aponta para novo registro
-         printf( "\n Registro inserido!" );   
-   }else{
-         if( (*p)->info.codigo > cod )                   // verifica se código a ser inserido é menor que o valor do registro para qual o p aponta
-              insere_recursivo( &(*p)->sube, cod );      // anda com o ponteiro p para a esquerda, pois o código procurado é menor
-         else
-              if( (*p)->info.codigo < cod )              // verifica se código a ser inserido é maior que o valor do registro para qual o p aponta
-                   insere_recursivo( &(*p)->subd, cod ); // anda com o ponteiro p para a direita, pois o código procurado é maior 
-              else
-                 printf( "\n Registro já existe!" );    
-		 }			    
-} // desempilha
-
-
-
 /***************************************************
  * busca_recursivo                                 *
  * objetivo: rotina para buscar registro por código*
@@ -469,155 +278,6 @@ ARVORE* busca_recursivo( ARVORE *p, int cod ){
    } // fim if( *p == NULL || (*p)->info.codigo == cod )
 }
 
-
-/****************************************************
- * remove_recursivo                                 *
- * objetivo: rotina para remover registro por código*
- * entrada : ARVORE e cod                           *
- * saída   : ARVORE com registro removido           *
- ****************************************************/ 
-ARVORE* remove_recursivo( ARVORE *p, int cod ){
-	 if( p == NULL )
-	     return NULL;
-	 else 
-	     if( p->info.codigo > cod )     // procura o código pela esquerda
-			 p->sube= remove_recursivo( p->sube, cod );
-         else
-		     if( p->info.codigo < cod ) // procura o código pela esquerda
-				 p->subd= remove_recursivo( p->subd, cod );
-			 else{                      // achou o nó e este não tem filhos
-				 if( p->sube == NULL && p->subd == NULL ){
-					 free( p );
-					 p= NULL;
-				 }else                  // achou o nó e este tem filho à direita
-					 if( p->sube == NULL ){
-						 ARVORE* aux= p;
-						 p= p->subd;
-						 free( aux );
-					 }else              // achou o nó e este tem filho à esquerda
-					     if( p->subd == NULL ){
-							 ARVORE* aux= p;
-							 p= p->sube;
-							 free( aux );
-						 }else{         // achou o nó e este tem os dois filhos
-							 ARVORE* aux2 = p->sube;     // procura o maior da esquerda
-							 while( aux2->subd != NULL )  
-							 		aux2= aux2->subd;
-							 p->info= aux2->info;        // troca as informações
-							 aux2->info.codigo= cod;
-							 p->sube= remove_recursivo( p->sube, cod );
-						 }
-			 }
- return p;
-}
-
-
-/****************************************************
- * calcula_altura                                   *
- * objetivo: rotina para calcular a altura da árvore*
- * entrada : ARVORE                                 *
- * saída   : ARVORE com campo altura atualizado     *
- ****************************************************/ 
-void calcula_altura( ARVORE **r ){
-	ARVORE *aux= *r;                            // ponteiro auxiliar para percorrer a árvore
-    
-    if( aux != NULL ){                          // verifica se a raiz é diferente de NULL
-        aux->info.altura= altura_arvore( aux ); // verifica a altura do nó
-        aux->info.fatbal= ( altura_arvore( aux->subd ) + 1 ) - ( altura_arvore( aux->sube ) + 1 ); // calcula fator de balanceamento (fatbal) do nó
-        //printf("\n Cod:%i  A:%i  Fatbal:%i  \n", aux->info.codigo, aux->info.altura, fatbal);
-   	    calcula_altura( &aux->subd );          // recursivo, segue pelo caminho da direita do nó
-        calcula_altura( &aux->sube );          // recursivo, segue pelo caminho da esquerda do nó
-    }
-}
-
-
-/****************************************************
- * verifica_balanceamento                           *
- * objetivo: rotina para calcular o balancemaneto   *
- * entrada : ARVORE                                 *
- * saída   : ARVORE balanceada                      *
- ****************************************************/ 
-void verifica_balanceamento( ARVORE **r ){
-	ARVORE *aux= *r;                                // cria ponteiro auxiliar para percorrer a árvore
-    printf("\n chama");
-    if( aux != NULL ){                              // verifica se ponteiro é diferente de NULL
-		if( aux->info.fatbal >= 2 && ( aux->subd->info.fatbal != 2 && aux->subd->info.fatbal != -2 ) ){ // verifica fator de balanceamento no nó pai e filho, se nó pai for maior do que 1, a rotação será à esquerda 
-	        if( aux->subd->info.fatbal < 0 ){       // se sinal do fatbal do nó filho for negativo, realiza rotação dupla				
-	            rotacao_direita( &aux->subd );	    // rotação esquerda - dupla
-		        rotacao_esquerda( &aux );
-			}else                                   // se sinal do fatbal do nó filho for positivo, realiza rotação simples
-    			rotacao_esquerda( &aux );
-	    }else
-            if( aux->info.fatbal <= -2 && ( aux->sube->info.fatbal != 2 && aux->sube->info.fatbal != -2 ) ){ // verifica fator de balanceamento no nó pai e filho, se nó pai for menor do que 1, a rotação será à direita
-		        if( aux->sube->info.fatbal > 0 ){   // se sinal do fatbal do nó filho for positvo, realiza rotação dupla  
-		            rotacao_esquerda( &aux->sube ); // rotação direita - dupla	  
-			        rotacao_direita( &aux );
-				}else 
-	    			rotacao_direita( &aux );        // se sinal do fatbal do nó filho for positivo, realiza rotação simples
-			}else{
-					verifica_balanceamento( &aux->sube ); // continua verificando balanceamento à esquerda
-					verifica_balanceamento( &aux->subd ); // continua verificando balanceamento à direita 	
-			}
-		calcula_altura( &aux );	                    // atualiza a altura dos nós da árvore após rotação
-   }
-   *r= aux;                                         // atualiza a raiz após rotação
-}
-
-/****************************************************
- * altura_arvore                                    *
- * objetivo: rotina para calcular a altura da árvore*
- * entrada : ARVORE                                 *
- * saída   : altura                                 *
- ****************************************************/ 
-int altura_arvore( ARVORE *p ){
-	 int altura_esq, altura_dir;
-	 if( p == NULL  )                           // finaliza o percurso
-	     return -1;
-     else{
-          altura_dir= altura_arvore( p->subd ); // percorre à direita
-	 	  altura_esq= altura_arvore( p->sube ); // percorre à esquerda
-          if( altura_dir > altura_esq )         // se altura da direita maior, soma mais um nível à direita
-              return altura_dir + 1;
-          else                                  // se altura da esquerda maior, soma mais um nível à esquerda
-              return altura_esq + 1;		      
-     }
-}
-
-
-/****************************************************
- * rotacao_direita                                  *
- * objetivo: rotina para rotacionar árvore          *
- * entrada : ARVORE                                 *
- * saída   : ARVORE rotacionada                     *
- ****************************************************/ 
-void rotacao_direita( ARVORE **p ){
-	 ARVORE *aux;
-	 if( *p != NULL ){                            // percurso até NULL
-	 	  aux= (*p)->sube;                        // aponta à esquerda
-		  (*p)->sube= aux->subd;                  // nó filho à direita  
-		  aux->subd= *p;                          // raiz passa a ser nó filho
-		  *p= aux;                                // aux passa ser a nova raiz
-     }
-}
-
-
-/****************************************************
- * rotacao_esquerda                                 *
- * objetivo: rotina para rotacionar árvore          *
- * entrada : ARVORE                                 *
- * saída   : ARVORE rotacionada                     *
- ****************************************************/ 
-void rotacao_esquerda( ARVORE **p ){
-	 ARVORE *aux;
-	 if( *p != NULL ){                            // percurso até NULL
-	 	  aux= (*p)->subd;                        // ponteiro auxiliar é posicionado no nó filho da direita
-		  (*p)->subd= aux->sube;                  // ajusta apontamento, ponteiro direito pai aponta para ponteiro esquerdo do filho
-		  aux->sube= *p;                          // ponteiro à esquerda no filho aponta para nó pai
-		  *p= aux;                                // reposiciona p
-     }
-}
-
-
 /************************************************
  * gera_dados                                   *
  * objetivo: rotina para ler dados dos registros*
@@ -628,60 +288,64 @@ void rotacao_esquerda( ARVORE **p ){
  //void SetPessoa(Pessoa *P, int idade, float peso, float altura)
 
 void gera_dados(ARVORE **r){
-
-	 
-int   i, x;                                 // i= índice da lista; x= armazena número sorteado 
-for(i = 0 ; i < 10 ; i ++)
-{
-	for(x = 0 ; x < 10 ; x++){
-		
-	ARVORE* a;      // ponteiro auxiliar
-    ARVORE* p;      // ponteiro auxiliar para anterior de p
-    int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estrutura
-	
-	//Vetor de perguntas a serem respondidas pelo usuario/
-	char *nomes[] = {
-"Você realizou alguma aplicação nos últimos 12 meses?", //cod 0
-"Pergunta02", //cod 1
-"Pergunta03", //cod 2
-"Pergunta04", //cod 3
-"Pergunta05", //cod 4
-"Pergunta06", //cod 5
-"Pergunta07", //cod 6
-"Perfil01",   //cod 7
-"Perfil02",   //cod 8
-"Perfil03"    //cod 9
-};
-  		
-		 printf("\n teste: %s",nomes[i]);
-		 getchar();
-		 p = *r;
-		 achou = busca( cod, &a, &p );      // verifica se código a ser inserido já existe na árvore
-		if(!achou)
-		{
-	     ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
-	     
-		 if(no != NULL)
-		 {
-	     	no->info.codigo = cod;
-	     	strcpy(no->info.nome,(nomes[i]));
-	     	
-	     	entrada_dados(no);  
-		     if(*r == NULL)
-			 {
-			 		*r = no;
-			 }
-		 else		 	
-		 		if(no->info.codigo > a->info.codigo)
-			 		a->subd = no;
-		 	else
-		 			a->sube = no;
+		 
+	int   i, x;                                 // variaveis auxiliares para percorrer o vetor
+	for(i = 0 ; i < 10 ; i ++) //laço para percorrer o vetor
+	{
+		for(x = 0 ; x < 10 ; x++) //laço para popular com a quantidade X de registros
+		{	
+			ARVORE* a;      // ponteiro auxiliar
+		    ARVORE* p;      // ponteiro auxiliar para anterior de p
+		    int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estrutura
+			//printf("\n valor do i apos 1º laco %i",i);
+			//getch();
+			//Vetor de perguntas a serem respondidas pelo usuario/
+			char *perguntas[] = {
+		"Você realizou alguma aplicação nos últimos 12 meses?", //cod 0
+		"Pergunta02", //cod 1
+		"Pergunta03", //cod 2
+		"Pergunta04", //cod 3
+		"Pergunta05", //cod 4
+		"Pergunta06", //cod 5 //primeiro registro
+		"Pergunta07", //cod 6
+		"Perfil01",   //cod 7
+		"Perfil02",   //cod 8
+		"Perfil03"    //cod 9
+		};
+		  		
+				 //printf("\n teste: %s",nomes[i]);
+				 //getchar();
+				 p = *r;
+				 achou = busca( cod, &a, &p );      // verifica se código a ser inserido já existe na árvore
+				if(!achou)
+				{
+				     ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
+				     
+					 if(no != NULL)
+					 {
+				     	no->info.codigo = cod;
+				     	strcpy(no->info.nome,(perguntas[i]));
+				     	
+				     	entrada_dados(no);  
+					     if(*r == NULL)
+						 {
+						 		no->info.codigo = 5;
+						 		strcpy(no->info.nome,(perguntas[5]));
+						 		*r = no;
+						 }
+					 else		 	
+					 		if(no->info.codigo > (*r)->info.codigo) 
+					 			a->subd = no;
+							else							 
+					 			a->sube = no;
+					}
+			     	
+				}
 		}
-	     	
 	}
-}
-		
-	}
-
 }
 	
+		
+	
+
+
