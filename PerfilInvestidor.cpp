@@ -145,8 +145,8 @@ ARVORE* inicia_questionario( ARVORE *p, char opt)
    //p = (*r);
    while(p->subd != NULL || p->sube != NULL)
    { 	
-      	printf("%s\n",p->info.nome);
-   		printf("Resposta: ");
+      	printf("\n %s",p->info.nome);
+   		printf("\n Resposta: ");
    		gets(resposta); 
    		if( strcmp(resposta,"sim")==0)
    		inicia_questionario(p->subd,opt);
@@ -288,19 +288,8 @@ ARVORE* busca_recursivo( ARVORE *p, int cod ){
  //void SetPessoa(Pessoa *P, int idade, float peso, float altura)
 
 void gera_dados(ARVORE **r){
-		 
-	int   i, x;                                 // variaveis auxiliares para percorrer o vetor
-	for(i = 0 ; i < 10 ; i ++) //laço para percorrer o vetor
-	{
-		for(x = 0 ; x < 10 ; x++) //laço para popular com a quantidade X de registros
-		{	
-			ARVORE* a;      // ponteiro auxiliar
-		    ARVORE* p;      // ponteiro auxiliar para anterior de p
-		    int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estrutura
-			//printf("\n valor do i apos 1º laco %i",i);
-			//getch();
-			//Vetor de perguntas a serem respondidas pelo usuario/
-			char *perguntas[] = {
+	
+		char *perguntas[] = {
 		"Você realizou alguma aplicação nos últimos 12 meses?", //cod 0
 		"Pergunta02", //cod 1
 		"Pergunta03", //cod 2
@@ -310,37 +299,70 @@ void gera_dados(ARVORE **r){
 		"Pergunta07", //cod 6
 		"Perfil01",   //cod 7
 		"Perfil02",   //cod 8
-		"Perfil03"    //cod 9
-		};
-		  		
-				 //printf("\n teste: %s",nomes[i]);
-				 //getchar();
-				 p = *r;
-				 achou = busca( cod, &a, &p );      // verifica se código a ser inserido já existe na árvore
-				if(!achou)
-				{
-				     ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
-				     
-					 if(no != NULL)
-					 {
-				     	no->info.codigo = cod;
-				     	strcpy(no->info.nome,(perguntas[i]));
-				     	
-				     	entrada_dados(no);  
-					     if(*r == NULL)
-						 {
-						 		no->info.codigo = 5;
-						 		strcpy(no->info.nome,(perguntas[5]));
-						 		*r = no;
-						 }
-					 else		 	
-					 		if(no->info.codigo > (*r)->info.codigo) 
-					 			a->subd = no;
-							else							 
-					 			a->sube = no;
-					}
+		"Perfil03",   //cod 9
+		"Perfil04",   //cod 10
+		"Perfil05",   //cod 11
+		"Perfil06",   //cod 12
+		"Perfil07",   //cod 13
+		"Perfil08",   //cod 14
+		"Perfil09",   //cod 15
+		"Perfil10",   //cod 16
+		"Perfil11",   //cod 17
+		"Perfil12",   //cod 18
+		"Perfil13"   //cod  19
+		};	
+		
+		int vetPosicoes[] = {
+		-5,   //cod 0
+		-4,   //cod 1
+		-3,   //cod 2
+		-2,   //cod 3
+		-1,   //cod 4
+		 0,   //cod 5 //primeiro registro
+		 1,   //cod 6
+		 2,   //cod 7
+		 3,   //cod 8
+		 4,   //cod 9
+		 5,   //cod 10
+		 6,   //cod 11
+		 7,   //cod 12
+		 8,   //cod 13
+		 9,   //cod 14
+		 10,  //cod 15
+		 11,  //cod 16
+		 12,  //cod 17
+		 13,  //cod 18
+		 14,  //cod 19
+		 15   //cod 20
+		};	  
+	int   i, x;                                 // variaveis auxiliares para percorrer o vetor
+for(i = 0 ; i < 21 ; i ++) //laço para percorrer o vetor
+{
+
+		ARVORE* a;      // ponteiro auxiliar
+	    ARVORE* p;      // ponteiro auxiliar para anterior de p
+	    int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estruturas
+		p = *r;
+			 achou = busca( cod, &a, &p );      // verifica se código a ser inserido já existe na árvore
+			if(!achou)
+			{
+				ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
+			     
+				 if(no != NULL)
+				 {
+			     	no->info.codigo = vetPosicoes[i];
+			     	strcpy(no->info.nome,perguntas[i]);
+			     	entrada_dados(no);  
 			     	
-				}
+				     if(*r == NULL)
+					 		*r = no;
+					else 
+	                      if ( no->info.codigo > a->info.codigo )
+	                           a->subd = no; // insere a direita do registro folha
+	                else
+	                      if ( no->info.codigo < a->info.codigo )
+	                           a->sube = no; // insere a esquerda do registro folha
+			     }
 		}
 	}
 }
