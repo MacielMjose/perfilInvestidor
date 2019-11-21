@@ -1,4 +1,3 @@
-  
 /***********************************************/ 
 /* Árvores Binárias                            */
 /* objetivo: registro de códigos               */
@@ -25,7 +24,7 @@ typedef struct {          // registro
        int  codigo;       
 	   int  altura;
 	   int  fatbal;
-	   char nome[31]; //mudar nome dessa variável depois
+	   char nome[500]; //mudar nome dessa variável depois
 } INFORMACAO;
        
 typedef struct arv {
@@ -150,7 +149,7 @@ ARVORE* inicia_questionario( ARVORE *p)
 	   		printf("\n Resposta: "); //pergunta ao usuário
 	   		gets(resposta); //get string da resposta do usuário
 	   		strupr(resposta);//string uppercase, transforma o string digitado em Uppercase
-	   		printf("\n %s",resposta);//teste de tela
+	   		//printf("\n %s",resposta);//teste de tela
 	   		
 	   		if( strcmp(resposta,"SIM")==0) //se a string contida em resposta for igual a SIM, retorna 0
 	   			inicia_questionario(p->subd);//então, eu sigo pelo caminho da direita
@@ -302,84 +301,73 @@ void gera_dados(ARVORE **r){
 		"Faria investimentos para longo prazo, sem poder resgatar o seu dinheiro nos próximos 5 anos ?", //pos 2 - cod 20
 		"Prioriza segurança para que não perca dinheiro ? ", //pos 3 - cod 65
 		"Investiria seu dinheiro para recuperar o mesmo no mesmo dia ou semana, independente de resultados positivos ou negativos ?",//pos 4 - cod 11
-		"Investiria mais de 1000 reais por mês sem liquidez diária/mensal ? " , //pos 5 - cod 30
-		"Supondo o caso de que você investisse 1000 em 1 mês. Você teria grandes problemas se investisse e perdesse os 1000 reais ? ",
+		"Investiria mais de 1000 reais por mês sem liquidez diária/mensal ? ", //pos 5 - cod 30
+		"Supondo o caso de que você investisse 1000 em 1 mês. Você teria grandes problemas se investisse e perdesse os 1000 reais ? ", // pos 6 - cod 48
 		"Investiria mais de 1000 reais mensalmente caso tenha renda para isso?", //pos 7 - cod 91 
-		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ? ",
-		"Ao Montar sua carteira de investimentos você procuraria um especialista para lhe auxiliar ? ",
-		"Ja investiu em ações ?",
-		"Considerando seus investimentos de 1000 do mês passado,você se depara com uma queda, resgata o seu dinheiro?",
-		"Moderado",
-		"Conservador", //pos 9  - cod  
-		"Ao Montar sua carteira de investimentos você procuraria um especialista para lhe auxiliar ? ",
-		"Agressivo",
-		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ?", //8
-		"Moderado",
-		"Ja investiu em ações ? ",
-		"Conservador",
-		"Agressivo",
-		"Considerando seus investimentos de 1000 do mês passado,você se depara com uma queda, resgata o seu dinheiro? ",
-		"Em relação ao seu planejamento financeiro, você se considera organizado ?",
-		"Se a perda de uma quantia em dinheiro te traria problemas, certamente necessita mais conhecimento, quando falamos em investimento, você acha os assuntos abordados interessantes? ",
-		"E ao comprar produtos de investimento você considera uma tarefa fácil para conseguir realiza-lá sozinho ?",
-		"Você gostaria de investir estes 1000 reais ou mais por mês, para criar um patrimônio a longo prazo ?",
-		"Conservador",
-		"Moderado",
-		"Agressivo",
-		"Moderado",
-		"Conservador",
-		"Agressivo",
-		"Moderado",
-		"Conservador",
-		"Moderado",
-		"Agressivo",
-		"Conservador",
-		"Moderado",
-		"Conservador",
-		"Moderado",
-		"Agressivo",
-		"Moderado"
-		
+		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ? ", //pos8 - cod8
+		"Ao Montar sua carteira de investimentos você procuraria um especialista para lhe auxiliar ? ", //pos9 - cod17
+		"Ja investiu em ações ?", //pos10-28 
+		"Considerando seus investimentos de 1000 do mês passado,você se depara com uma queda, resgata o seu dinheiro?",//pos11 - cod35
+		"Em relação ao seu planejamento financeiro, você se considera organizado ?",//pos12 - cod46
+		"Se a perda de uma quantia em dinheiro te traria problemas, certamente necessita mais conhecimento, quando falamos em investimento, você acha os assuntos abordados interessantes? ", //pos13 -cod 50
+		"E ao comprar produtos de investimento você considera uma tarefa fácil para conseguir realiza-lá sozinho ?", //pos 14  - cod  72
+		"Você gostaria de investir estes 1000 reais ou mais por mês, para criar um patrimônio a longo prazo ?", //pos 15  - cod  99
+		"Conservador ",// //pos 16  - cod 6
+		"Moderado",//pos17  - cod  9
+		"Agressivo?", //pos18 - cod 15
+		"Moderado", //pos19 - cod19
+		"Conservador", //pos20 - cod 26
+		"Agressivo", //pos 21 - cod 29
+		"Moderado", //pos 22 - cod 32
+		"Conservador ", //pos 23 - cod 36
+		"Moderado" //pos 24 - cod 45
+		"Agressivo", //pos 25 - cod 47
+		"Conservador", //pos26 - cod 49
+		"Moderado", //pos27 -cod 52
+		"Conservador", //pos 28 - cod 70
+		"Moderado", //pos29 - cod 76
+		"Agressivo", //pos30 - cod 98
+		"Moderado" //pos31 - cod 100
+
 		};
 		
 		int vetPosicoes[]= {41,20,65,11,30,48,91,8,17,28,35,46,50,72,99,6,9,15,19,26,29,32,36,45,47,49,52,70,76,98,100};
-		
-	int   i; // variaveis auxiliares para percorrer o vetor
-for(i = 0 ; i < 31 ; i ++) //laço para percorrer o vetor
+	int   i, x;                                 // variaveis auxiliares para percorrer o vetor
+for(i = 0 ; i < 32 ; i ++) //laço para percorrer o vetor
 {
 
-int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estruturas
-
-			ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
-		     
-			 if(no != NULL)
-			 {
-		     	no->info.codigo = vetPosicoes[i]; //no info codigo recebe o valor contido na posição i do vetor
-		     	strcpy(no->info.nome,perguntas[i]);//copia o valor da string2 para a variavel 1
-		     	
-			     if(*r == NULL) //verifica se a raiz é null, popular o primeiro registro
-			     {		
-				 		*r = no; //raiz recebe a informação contida em no
-				 }		    		
-				else { 				//caso a raiz não esteja vazia, verificar onde o registro deverá ser inserido
-						ARVORE* atual = *r;      // ponteiro auxiliar
-	    				ARVORE* anterior = NULL;     // ponteiro auxiliar para anterior de atual	
-					while(atual != NULL) //se o atual for diferente de NULL
-					{
-						anterior = atual; //o anterior recebe o endereço do atual
-							if(no->info.codigo > atual->info.codigo) //se o codigo que quero inserir é maior que o atual
-								atual = atual->subd; //então deverá ser inserido à direita
-							else
-								atual = atual->sube; //do contrário, deverá ser inserido na subarvore a esquerda
-					}if(no->info.codigo > anterior->info.codigo) //se o codigo que quero inserir é maior que o anterior
-						anterior->subd = no; //insere na subarvore direita
-					else
-						anterior->sube = no; //insere na subarvore esquerda
-				}
-                     
-		     }
+	int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estruturas
+		//p = *r;
+				ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
+			     
+				 if(no != NULL)
+				 {
+			     	no->info.codigo = vetPosicoes[i]; //no info codigo recebe o valor contido na posição i do vetor
+			     	strcpy(no->info.nome,perguntas[i]);//copia o valor da string2 para a variavel 1
+			     	
+				     if(*r == NULL) //verifica se a raiz é null, popular o primeiro registro
+				     {		
+					 		*r = no; //raiz recebe a informação contida em no
+					 }		    		
+					else { 				//caso a raiz não esteja vazia, verificar onde o registro deverá ser inserido
+							ARVORE* atual = *r;      // ponteiro auxiliar
+		    				ARVORE* anterior = NULL;     // ponteiro auxiliar para anterior de atual	
+						while(atual != NULL) //se o atual for diferente de NULL
+						{
+							anterior = atual; //o anterior recebe o endereço do atual
+								if(no->info.codigo > atual->info.codigo) //se o codigo que quero inserir é maior que o atual
+									atual = atual->subd; //então deverá ser inserido à direita
+								else
+									atual = atual->sube; //do contrário, deverá ser inserido na subarvore a esquerda
+						}if(no->info.codigo > anterior->info.codigo) //se o codigo que quero inserir é maior que o anterior
+							anterior->subd = no; //insere na subarvore direita
+						else
+							anterior->sube = no; //insere na subarvore esquerda
+					}
+	                     
+			     }
 		}
 		
-}
+	}
 
 
