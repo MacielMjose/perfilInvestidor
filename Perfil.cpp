@@ -183,8 +183,7 @@ void imprime_ARVORE( ARVORE* aux ){
      
     if( aux != NULL ){              // verifica se a raiz é diferente de vazio
         printf( "\n Código.....: %d", aux->info.codigo );
-        printf( "\n Altura.....: %d", aux->info.altura );
-        printf( "\n Fatbal.....: %s", aux->info.nome );        
+        printf( "\n Pergunta...: %s", aux->info.nome );        
 		getchar();
         printf( "\n >> sube" );
         imprime_ARVORE( aux->sube ); // recursivo, segue pelo caminho da esquerda
@@ -308,22 +307,22 @@ void gera_dados(ARVORE **r){
 		"Se a perda de uma quantia em dinheiro te traria problemas, certamente necessita mais conhecimento, quando falamos em investimento, você acha os assuntos abordados interessantes? ", //pos13 -cod 50
 		"E ao comprar produtos de investimento você considera uma tarefa fácil para conseguir realiza-lá sozinho ?", //pos 14  - cod  72
 		"Você gostaria de investir estes 1000 reais ou mais por mês, para criar um patrimônio a longo prazo ?", //pos 15  - cod  99
-		"Conservador 1",// //pos 16  - cod 6
-		"Moderado 1",//pos17  - cod  9
-		"Agressivo 1", //pos18 - cod 15
-		"Moderado 2", //pos19 - cod19
-		"Conservador 2", //pos20 - cod 26
-		"Agressivo 2", //pos 21 - cod 29
-		"Moderado 3", //pos 22 - cod 32
-		"Conservador 3", //pos 23 - cod 36
-		"Moderado 4", //pos 24 - cod 45
-		"Agressivo 3", //pos 25 - cod 47
-		"Conservador 4", //pos26 - cod 49
-		"Moderado 5", //pos27 -cod 52
-		"Conservador 5", //pos 28 - cod 70
-		"Moderado 6", //pos29 - cod 76
-		"Agressivo 5", //pos30 - cod 98
-		"Moderado 7" //pos31 - cod 100
+		"O seu perfil é: Conservador, você anseia em ganhar dinheiro, desejando fazer o seu dinheiro trabalhar para você, mas não gosta de correr riscos, deixar o dinheiro na poupança não é investimento, logo recomendamos investimentos em renda fixa: Tesouro Selic, Tesouro Direto, LCI, LCA, CDB.",// //pos 16  - cod 6
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//pos17  - cod  9
+		"Seu perfil é: Agressivo, Não tem medo de se arriscar, necessita de conhecimento sobre economia e outras áreas que afetam a economia,para saber no que esta se metendo, podendo ganhar dinheiro diariamente e ao longo prazo, logo recomendamos os seguintes investimentos: Fundos Multimercados, Fundos Imobiliários. ações, Fracionadas ou por lote.", //pos18 - cod 15
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//
+		"O seu perfil é: Conservador, você anseia em ganhar dinheiro, desejando fazer o seu dinheiro trabalhar para você, mas não gosta de correr riscos, deixar o dinheiro na poupança não é investimento, logo recomendamos investimentos em renda fixa: Tesouro Selic, Tesouro Direto, LCI, LCA, CDB.", //pos20 - cod 26
+		"Seu perfil é: Agressivo, Não tem medo de se arriscar, necessita de conhecimento sobre economia e outras áreas que afetam a economia,para saber no que esta se metendo, podendo ganhar dinheiro diariamente e ao longo prazo, logo recomendamos os seguintes investimentos: Fundos Multimercados, Fundos Imobiliários. ações, Fracionadas ou por lote.", //pos 21 - cod 29
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//pos17  - cod  9,
+		"O seu perfil é: Conservador, você anseia em ganhar dinheiro, desejando fazer o seu dinheiro trabalhar para você, mas não gosta de correr riscos, deixar o dinheiro na poupança não é investimento, logo recomendamos investimentos em renda fixa: Tesouro Selic, Tesouro Direto, LCI, LCA, CDB.", //pos 23 - cod 36
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//pos24  - cod  45
+		"Seu perfil é: Agressivo, Não tem medo de se arriscar, necessita de conhecimento sobre economia e outras áreas que afetam a economia,para saber no que esta se metendo, podendo ganhar dinheiro diariamente e ao longo prazo, logo recomendamos os seguintes investimentos: Fundos Multimercados, Fundos Imobiliários. ações, Fracionadas ou por lote.", //pos 25 - cod 47
+		"O seu perfil é: Conservador, você anseia em ganhar dinheiro, desejando fazer o seu dinheiro trabalhar para você, mas não gosta de correr riscos, deixar o dinheiro na poupança não é investimento, logo recomendamos investimentos em renda fixa: Tesouro Selic, Tesouro Direto, LCI, LCA, CDB.", //pos26 - cod 49
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//pos17  - cod  9
+		"O seu perfil é: Conservador, você anseia em ganhar dinheiro, desejando fazer o seu dinheiro trabalhar para você, mas não gosta de correr riscos, deixar o dinheiro na poupança não é investimento, logo recomendamos investimentos em renda fixa: Tesouro Selic, Tesouro Direto, LCI, LCA, CDB.", //pos 27 - cod 52
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas.",//pos29  - cod  76
+		"Seu perfil é: Agressivo, Não tem medo de se arriscar, necessita de conhecimento sobre economia e outras áreas que afetam a economia,para saber no que esta se metendo, podendo ganhar dinheiro diariamente e ao longo prazo, logo recomendamos os seguintes investimentos: Fundos Multimercados, Fundos Imobiliários. ações, Fracionadas ou por lote.", //pos 30 - cod 98
+		"Ninguém quer correr o risco de perder dinheiro não é verdade? mas, como diz o ditado, 'quem não arrisca, não petisca', este ditado se encaixa muito bem ao seu perfil, Moderado, que tem dúvidas se deve se arriscar ou não, logo recomendamos: Fundos de ações, fundos imobiliário, fundos multimercado e até mesmo algumas ações fracionadas." //pos31  - cod 100
 		
 		};
 		
