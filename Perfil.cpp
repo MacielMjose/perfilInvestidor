@@ -1,10 +1,10 @@
-/***********************************************/ 
-/* Árvores Binárias                            */
-/* objetivo: registro de códigos               */
-/* programador: Daniela Bagatini               */
-/* criado em: 08/11/2017                       */
-/* data da última alteração: 06/06/2018        */
-/***********************************************/ 
+/***************************************************************************************/ 
+/* Árvores Binárias                                                                    */
+/* objetivo: registro de códigos                                                       */
+/* programador: José Maciel, Gabriel Brittes, Nicolas Lima, Luciano Rocha              */
+/* criado em: 21/11/2019                                                               */
+/* data da última alteração: 21/11/2019                                                */
+/***************************************************************************************/ 
 
 #include <stdio.h>
 #include <conio.h>
@@ -24,7 +24,7 @@ typedef struct {          // registro
        int  codigo;       
 	   int  altura;
 	   int  fatbal;
-	   char nome[500]; //mudar nome dessa variável depois
+	   char nome[1000]; //mudar nome dessa variável depois
 } INFORMACAO;
        
 typedef struct arv {
@@ -47,7 +47,7 @@ void    imprime_ARVORE  ( ARVORE* aux ); // visualização da árvore em tela, todo
 void    insere          ( ARVORE** r );  // inclui um novo registro na árvore, sempre na folha
 void    insere_recursivo( ARVORE** r, int cod ); // inclui um novo registro na árvore
 ARVORE* busca_recursivo ( ARVORE *p, int cod ); 
-ARVORE* inicia_questionario( ARVORE *p); //rotina responsavel por realizar as perguntas a fim de traçar o perfil do investidor
+int inicia_questionario( ARVORE *p); //rotina responsavel por realizar as perguntas a fim de traçar o perfil do investidor
 int     busca           ( int matricula, ARVORE** a, ARVORE** p ); // procura na árvore um código
 ARVORE* remove_recursivo( ARVORE *p, int cod );
 
@@ -69,8 +69,8 @@ int main( void )
          printf( "\n [1] Cria ARVORE                                      " );
          printf( "\n [4] Imprime                                          " );         
 		 printf( "\n [9] Gera Arvore Binária - Popular Árvore             " ); 
-		 printf( "\n [5] Inicia Questionário                             " );         
-		 printf( "\n [7] Para sair do programa                           " );         
+		 printf( "\n [5] Inicia Questionário                              " );         
+		 printf( "\n [7] Para sair do programa                            " );         
          printf( "\n /---------------------------------------------------/" );      
          printf( "\n Opcao: " );
          op = getche(); // tecla de opção do menu
@@ -139,12 +139,10 @@ int main( void )
  * entrada : ARVORE e cod                          *
  * saída   : ARVORE com mais um registro           *
  ***************************************************/ 
-ARVORE* inicia_questionario( ARVORE *p)
+int inicia_questionario( ARVORE *p)
 {
    char resposta[3]; //armazena a resposta do usuario  para determinar o caminho
     	
-    	do
-		{
 			printf("\n %s",p->info.nome); //inicializa o qestioranio com a pergunta raiz
 	   		printf("\n Resposta: "); //pergunta ao usuário
 	   		gets(resposta); //get string da resposta do usuário
@@ -155,12 +153,10 @@ ARVORE* inicia_questionario( ARVORE *p)
 	   			inicia_questionario(p->subd);//então, eu sigo pelo caminho da direita
 	   		
 			if( strcmp(resposta,"NAO")==0) //se a string contida em resposta for igual a NAO, retorna 0
-	   			inicia_questionario(p->sube);//então, eu sigo pelo caminho da
-	   		else
-	   			printf("\n Resposta inválida");
+	   			inicia_questionario(p->sube);//então, eu sigo pelo caminho da esquerda
 				   	   		
 	   		return 0;//se o usuário digitar qualquer coisa que não seja SIM ou NÃO, o programa é e ncerrado e retorna para o menu.
-		}while(p->subd != NULL && p->sube != NULL);
+
 }
   
 /************************************************ 
@@ -312,45 +308,45 @@ void gera_dados(ARVORE **r){
 		"Se a perda de uma quantia em dinheiro te traria problemas, certamente necessita mais conhecimento, quando falamos em investimento, você acha os assuntos abordados interessantes? ", //pos13 -cod 50
 		"E ao comprar produtos de investimento você considera uma tarefa fácil para conseguir realiza-lá sozinho ?", //pos 14  - cod  72
 		"Você gostaria de investir estes 1000 reais ou mais por mês, para criar um patrimônio a longo prazo ?", //pos 15  - cod  99
-		"Conservador ",// //pos 16  - cod 6
-		"Moderado",//pos17  - cod  9
-		"Agressivo?", //pos18 - cod 15
-		"Moderado", //pos19 - cod19
-		"Conservador", //pos20 - cod 26
-		"Agressivo", //pos 21 - cod 29
-		"Moderado", //pos 22 - cod 32
-		"Conservador ", //pos 23 - cod 36
-		"Moderado" //pos 24 - cod 45
-		"Agressivo", //pos 25 - cod 47
-		"Conservador", //pos26 - cod 49
-		"Moderado", //pos27 -cod 52
-		"Conservador", //pos 28 - cod 70
-		"Moderado", //pos29 - cod 76
-		"Agressivo", //pos30 - cod 98
-		"Moderado" //pos31 - cod 100
-
+		"Conservador 1",// //pos 16  - cod 6
+		"Moderado 1",//pos17  - cod  9
+		"Agressivo 1", //pos18 - cod 15
+		"Moderado 2", //pos19 - cod19
+		"Conservador 2", //pos20 - cod 26
+		"Agressivo 2", //pos 21 - cod 29
+		"Moderado 3", //pos 22 - cod 32
+		"Conservador 3", //pos 23 - cod 36
+		"Moderado 4", //pos 24 - cod 45
+		"Agressivo 3", //pos 25 - cod 47
+		"Conservador 4", //pos26 - cod 49
+		"Moderado 5", //pos27 -cod 52
+		"Conservador 5", //pos 28 - cod 70
+		"Moderado 6", //pos29 - cod 76
+		"Agressivo 5", //pos30 - cod 98
+		"Moderado 7" //pos31 - cod 100
+		
 		};
 		
 		int vetPosicoes[]= {41,20,65,11,30,48,91,8,17,28,35,46,50,72,99,6,9,15,19,26,29,32,36,45,47,49,52,70,76,98,100};
-	int   i, x;                                 // variaveis auxiliares para percorrer o vetor
+		int   i;                                // variaveis auxiliares para percorrer o vetor
 for(i = 0 ; i < 32 ; i ++) //laço para percorrer o vetor
 {
 
-	int cod = i,achou; // cod = dado de entrada; achou = informa se código já existe na estruturas
-		//p = *r;
 				ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
 			     
-				 if(no != NULL)
+				 if(no != NULL) //validar se conseguiu alocar memoria
 				 {
 			     	no->info.codigo = vetPosicoes[i]; //no info codigo recebe o valor contido na posição i do vetor
 			     	strcpy(no->info.nome,perguntas[i]);//copia o valor da string2 para a variavel 1
+			     	no->sube= NULL;  //inicializar as subarvores sube
+			     	no->subd= NULL;  //inicializar as subarvores subde
 			     	
 				     if(*r == NULL) //verifica se a raiz é null, popular o primeiro registro
 				     {		
 					 		*r = no; //raiz recebe a informação contida em no
 					 }		    		
 					else { 				//caso a raiz não esteja vazia, verificar onde o registro deverá ser inserido
-							ARVORE* atual = *r;      // ponteiro auxiliar
+							ARVORE* atual = *r;          // ponteiro auxiliar
 		    				ARVORE* anterior = NULL;     // ponteiro auxiliar para anterior de atual	
 						while(atual != NULL) //se o atual for diferente de NULL
 						{
