@@ -190,75 +190,45 @@ void gera_dados(ARVORE **r)
 		char *perguntas[] = {
 		"Você realizou alguma aplicação nos últimos 12 meses?",
 		"Faria investimentos para longo prazo, sem poder resgatar o seu dinheiro nos próximos 5 anos ?",
-		"sss" ,
-		"Investiria seu dinheiro para recuperar o mesmo no mesmo dia ou semana, independente de resultados positivos ou negativos ?.",
-		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ? ",
+		"Investiria seu dinheiro para recuperar o mesmo no mesmo dia ou semana, independente de resultados positivos ou negativos ?",
+		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ?",
+		"Conservador" ,
+		"Moderado",
+		"Ao Montar sua carteira de investimentos você procuraria um especialista para lhe auxiliar ? ",
+		"Agressivo",
+		"Moderado",
+		"Investiria mais de 1000 reais por mês sem liquidez diária/mensal ? ",
+		"Ja investiu em ações ? ",
 		"Conservador",
-		"Pergunta07", 
-		"Perfil01",   
-		"Perfil02",   
-		"Perfil03",   
-		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ? ", 
-		"Perfil05",   
-		"Perfil06",   
-		"Perfil07",  
-		"Perfil08",   
-		"Perfil09"   
-		"Pergunta07", 
-		"Perfil01",   
-		"Perfil02",   
-		"Perfil03",   
-		"Você sabe a diferença entre LCI, LCA Ações e Debêntures ? ", 
-		"Perfil05",   
-		"Perfil06",   
-		"Perfil07",   
-		"Perfil08",   
-		"Perfil09",   
-		"Perfil09",  
-		"Perfil09", 
-		"Perfil09",
-		"Perfil09",
-		"Perfil09"   
+		"Agressivo",
+		"Considerando seus investimentos de 1000 do mês passado,você se depara com uma queda, resgata o seu dinheiro? ",
+		"Moderado",
+		"Conservador",
+		"Prioriza segurança para que não perca dinheiro ? ",
+		"Supondo o caso de que você investisse 1000 em 1 mês. Você teria grandes problemas se investisse e perdesse os 1000 reais ? ",
+		"Em relação ao seu planejamento financeiro, você se considera organizado ?",
+		"Moderado",
+		"Agressivo",
+		"Se a perda de uma quantia em dinheiro te traria problemas, certamente necessita mais conhecimento, quando falamos em investimento, você acha os assuntos abordados interessantes? ",
+		"Conservador",
+		"Moderado",
+		"Investiria mais de 1000 reais mensalmente caso tenha renda para isso?",
+		"E ao comprar produtos de investimento você considera uma tarefa fácil para conseguir realiza-lá sozinho ?",
+		"Conservador",
+		"Moderado",
+		"Você gostaria de investir estes 1000 reais ou mais por mês, para criar um patrimônio a longo prazo ?",
+		"Agressivo",
+		"Moderado"
+		
 		};
 		
-		int vetPosicoes[] = {
-		 41,    
-		 20,    
-		 11,    
-		 8,      
-		 6,     
-		 9,      
-		 17,    
-		 15,    
-		 19,    
-		 30,    
-		 28,    
-		 26,    
-		 29,    
-		 35,    
-		 32,    
-		 36,    
-		 65,    
-		 48,   
-		 46,	
-		 45,
-		 47,	
-		 50,	
-		 49,	
-		 52,	
-		 91,	
-		 72,	
-		 70,	
-		 76,	
-		 99,	
-		 98,	
-		 100	
-		};	  
-	
+		int vetPosicoes[]= {41,20,65,11,30,48,91,8,17,28,35,46,50,72,99,6,9,15,19,26,29,32,36,45,47,49,52,70,76,98,100};	  
+
 	int   i; //variavel auxiliar, apenas para dar indice aos vetores e percorrer o laço FOR
 	
-	for(i = 0 ; i < 32 ; i ++) //laço para percorrer o vetor
+	for(i = 0 ; i < 16 ; i ++) //laço para percorrer o vetor
 	{
+		
 					ARVORE *no = ( ARVORE * ) malloc ( sizeof( ARVORE )); // aloca novo espaco em memória
 				     
 					 if(no != NULL)
@@ -271,6 +241,7 @@ void gera_dados(ARVORE **r)
 						 		*r = no; //raiz recebe a informação contida em no
 						 }		    		
 						else { 				//caso a raiz não esteja vazia, verificar onde o registro deverá ser inserido
+							
 								ARVORE* atual = *r;      // ponteiro auxiliar
 			    				ARVORE* anterior = NULL;     // ponteiro auxiliar para anterior de atual	
 							while(atual != NULL) //se o atual for diferente de NULL
